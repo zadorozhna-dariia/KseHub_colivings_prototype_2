@@ -138,7 +138,6 @@
   <div class="navitem active" data-go="dashboard"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</div>
   <div class="navgrp">Колівінги</div>
   <div class="navitem" data-go="colivings"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V7l7-4 7 4v14"/></svg>Список колівінгів</div>
-  <div class="navitem" data-go="tech"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 7l-1.5 1.5M5 19l4-4M16 4l4 4-9 9H7v-4l9-9z"/></svg>Технічний стан</div>
   <div class="navgrp">Мешканці</div>
   <div class="navitem" data-go="residents"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>Усі мешканці</div>
   <div class="navitem" data-go="moved"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>Виїхали</div>
@@ -146,9 +145,12 @@
   <div class="navitem" data-go="debtors"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Боржники</div>
   <div class="navitem" data-go="pay"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Платежі та акти</div>
   <div class="navitem" data-go="du"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Додаткові угоди</div>
-  <div class="navgrp">Інвентар та операційне</div>
+  <div class="navgrp">Стан та ремонти</div>
+  <div class="navitem" data-go="tech"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 7l-1.5 1.5M5 19l4-4M16 4l4 4-9 9H7v-4l9-9z"/></svg>Технічний стан</div>
+  <div class="navitem" data-go="insp"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Огляди колівінгів</div>
+  <div class="navitem" data-go="req"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Заявки на ремонт</div>
+  <div class="navgrp">Інвентар</div>
   <div class="navitem" data-go="eco"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>EcoFlow</div>
-  <div class="navitem" data-go="req"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Заявки</div>
   <div class="navgrp">База знань</div>
   <div class="navitem" data-go="mgrkb"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>База знань менеджера</div>
 </nav>
@@ -215,7 +217,7 @@ const crumb = document.getElementById('crumb');
 function setNav(go){document.querySelectorAll('.navitem').forEach(n=>n.classList.toggle('active', n.dataset.go===go));}
 function go(view,arg){try{if(window._kseMap){window._kseMap.remove();window._kseMap=null;}}catch(e){window._kseMap=null;}const nav={coliving:'colivings',resident:'residents'}[view]||view;setNav(nav);window.scrollTo(0,0);render(view,arg);}
 document.querySelectorAll('.navitem').forEach(n=>n.addEventListener('click',()=>go(n.dataset.go)));
-function render(v,a){({dashboard,colivings:colivingsList,coliving:colivingDetail,residents:residentsList,resident:residentDetail,debtors:debtorsView,tech:techView,moved:movedView,du:duView,pay:payView,eco:ecoView,req:reqView,freebeds:freeBedsView,reqdetail:reqDetailView,mgrkb:mgrKbView}[v])(a);}
+function render(v,a){({dashboard,colivings:colivingsList,coliving:colivingDetail,residents:residentsList,resident:residentDetail,debtors:debtorsView,tech:techView,moved:movedView,du:duView,pay:payView,eco:ecoView,req:reqView,freebeds:freeBedsView,reqdetail:reqDetailView,mgrkb:mgrKbView,insp:inspView}[v])(a);}
 
 // ============ DASHBOARD ============
 function dashboard(){
@@ -319,7 +321,7 @@ function drawMap(){
       <div class="note">Карта OpenStreetMap. Зелений пін — економія, червоний — перевитрата, синій — у нормі. Клік по піну — картка колівінгу.</div>`;
     if(window._kseMap){window._kseMap.remove();window._kseMap=null;}
     const map=L.map('lmap',{scrollWheelZoom:true}).setView([50.452,30.523],11);window._kseMap=map;
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
     const grp=[];
     list.filter(c=>c.lat).forEach(c=>{
       const col=c.diff<0?'#f87171':(c.diff>0?'#34d399':'#3b82f6');
@@ -493,7 +495,7 @@ function drawDebt(){
 
 // ============ TECH (no gas cards, +avg access) ============
 function techView(){
-  setNav('tech');crumb.innerHTML='Колівінги › <b>Технічний стан</b>';
+  setNav('tech');crumb.innerHTML='Стан та ремонти › <b>Технічний стан</b>';
   const areas=D.tech.filter(t=>t.area).map(t=>t.area);const avgA=Math.round(areas.reduce((s,a)=>s+a,0)/areas.length);
   const mins=D.tech.map(t=>{const m=(t.access||'').match(/(\d+)\s*хв/);const h=(t.access||'').match(/(\d+)\s*год/);return (h?+h[1]*60:0)+(m?+m[1]:0)||null;}).filter(Boolean);
   const avgMin=Math.round(mins.reduce((s,x)=>s+x,0)/mins.length);
@@ -573,10 +575,10 @@ function payView(){
   setNav('pay');crumb.innerHTML='Фінанси › <b>Платежі та акти</b>';
   app.innerHTML=`
   <div class="h1">Платежі та акти</div>
-  <div class="h1sub">Оренда, комунальні, помісячні огляди та облік комуналки</div>
+  <div class="h1sub">Оренда, комунальні платежі та облік комуналки помісячно</div>
   <div class="ctrls"><div class="seg-tabs" id="paytabs">
     <button class="on" onclick="payTab(this,'econ')">Економіка об'єктів</button>
-    <button onclick="payTab(this,'grid')">Огляди та комуналка (помісячно)</button>
+    <button onclick="payTab(this,'grid')">Оренда та комуналка (помісячно)</button>
   </div><input class="search" id="pq" placeholder="Пошук за адресою…" oninput="drawPayActive()"></div>
   <div id="paybody"></div>`;
   payTab(document.querySelector('#paytabs button'),'econ');
@@ -598,17 +600,18 @@ function drawPay(){
     <div class="note">Аркуші «Оплати» + «Детальний».</div>`;
 }
 const PAYMONTHS=['Вересень','Жовтень','Листопад','Грудень','Січень','Лютий','Березень','Квітень','Травень','Червень'];
-const PAYCOLS=[['rent','Оренда'],['act','Акт'],['util','Комуналка'],['inspected','Контроль']];
+const PAYCOLS=[['rent','Оренда'],['act','Акт'],['util','Комуналка']];
 function drawGrid(){
   const q=(document.getElementById('pq')?.value||'').toLowerCase();
   const list=cols.filter(c=>c.monthly&&c.address.toLowerCase().includes(q));
+  const NC=PAYCOLS.length;
   document.getElementById('paybody').innerHTML=`
   <div class="panel scrollx" style="padding:6px 6px">
     <table class="tbl" style="font-size:11.5px;border-collapse:collapse">
     <thead>
       <tr>
         <th rowspan="2" style="position:sticky;left:0;background:var(--panel);z-index:2;vertical-align:bottom;padding-bottom:10px">Адреса</th>
-        ${PAYMONTHS.map((m,i)=>`<th colspan="4" style="text-align:center;border-left:2px solid var(--line);background:${i%2?'var(--panel2)':'var(--panel)'};padding:8px 0">${m}</th>`).join('')}
+        ${PAYMONTHS.map((m,i)=>`<th colspan="${NC}" style="text-align:center;border-left:2px solid var(--line);background:${i%2?'var(--panel2)':'var(--panel)'};padding:8px 0">${m}</th>`).join('')}
       </tr>
       <tr>
         ${PAYMONTHS.map(m=>PAYCOLS.map(([k,lbl],idx)=>`<th style="text-align:center;font-size:9.5px;font-weight:600;padding:4px 6px;${idx===0?'border-left:2px solid var(--line)':''}">${lbl}</th>`).join('')).join('')}
@@ -619,20 +622,15 @@ function drawGrid(){
       <td style="position:sticky;left:0;background:var(--panel);z-index:1;font-weight:500;white-space:nowrap;padding-right:14px">${c.address}</td>
       ${PAYMONTHS.map(m=>{const d=c.monthly[m]||{};return PAYCOLS.map(([k,lbl],idx)=>{
         let val=!!d[k];
-        const isCtrl=(k==='inspected');
-        const hasNote=isCtrl && d.note && d.note.trim();
         let bg = val ? 'rgba(52,211,153,0.18)' : 'rgba(251,191,36,0.14)';
         let mark = val ? '<span style="color:#34d399">✓</span>' : '<span style="color:#9a8a4a">▢</span>';
-        if(hasNote) mark += '<span style="color:#60a5fa;font-size:10px;vertical-align:super" title="є коментар">●</span>';
-        const handler = isCtrl ? `openInsp(${ci},'${m}')` : `togCell(${ci},'${m}','${k}')`;
-        const tip = isCtrl ? (hasNote? d.note.replace(/"/g,'&quot;') : c.address+' · '+m+' · огляд + коментар') : c.address+' · '+m+' · '+lbl;
-        return `<td onclick="${handler}" title="${tip}"
+        return `<td onclick="togCell(${ci},'${m}','${k}')" title="${c.address} · ${m} · ${lbl}"
           style="text-align:center;cursor:pointer;background:${bg};font-size:14px;padding:9px 8px;${idx===0?'border-left:2px solid var(--line)':''}">${mark}</td>`;
       }).join('')}).join('')}
     </tr>`}).join('')}
     </tbody></table>
   </div>
-  <div class="note">Клік по клітинці перемикає відмітку (як у Google Sheets). Зелена ✓ — виконано, жовта ▢ — ні. Колонки кожного місяця: <b>Оренда</b> (сплачено власнику), <b>Акт</b> (акт по оренді), <b>Комуналка</b> (заведена), <b>Контроль</b> (огляд проведено). Клік по «Контроль» відкриває форму огляду з коментарем про стан; синя ● означає, що коментар є. Демо-дані.</div>`;
+  <div class="note">Клік по клітинці перемикає відмітку (як у Google Sheets). Зелена ✓ — виконано, жовта ▢ — ні. Колонки кожного місяця: <b>Оренда</b> (сплачено власнику), <b>Акт</b> (акт по оренді), <b>Комуналка</b> (заведена). Огляди стану колівінгів — у блоці «Стан та ремонти». Демо-дані.</div>`;
 }
 function togCell(ci,m,key){
   const c=cols[ci];if(!c.monthly[m])c.monthly[m]={};
@@ -668,7 +666,51 @@ function saveInsp(ci,m){
   const c=cols[ci];if(!c.monthly[m])c.monthly[m]={};
   c.monthly[m].inspected=document.getElementById('inspDone').checked;
   c.monthly[m].note=document.getElementById('inspNote').value;
-  closeInsp();drawGrid();
+  closeInsp();drawInsp();
+}
+
+// ============ ОГЛЯДИ КОЛІВІНГІВ (стан, помісячно) ============
+function inspView(){
+  setNav('insp');crumb.innerHTML='Стан та ремонти › <b>Огляди колівінгів</b>';
+  const total=cols.length*PAYMONTHS.length;
+  let done=0,withNote=0;
+  cols.forEach(c=>PAYMONTHS.forEach(m=>{const d=(c.monthly||{})[m]||{};if(d.inspected)done++;if(d.note&&d.note.trim())withNote++;}));
+  app.innerHTML=`
+  <div class="h1">Огляди колівінгів</div>
+  <div class="h1sub">Помісячний контроль стану квартир · відмітка огляду + коментар про проблемні моменти</div>
+  <div class="kpis" style="grid-template-columns:repeat(3,1fr)">
+    <div class="kpi"><div class="lab">Проведено оглядів</div><div class="val g">${done}</div><div class="sub">з ${total} можливих</div></div>
+    <div class="kpi"><div class="lab">З коментарем про стан</div><div class="val b">${withNote}</div></div>
+    <div class="kpi"><div class="lab">Колівінгів</div><div class="val a">${cols.length}</div></div>
+  </div>
+  <div class="ctrls"><input class="search" id="iq" placeholder="Пошук за адресою…" oninput="drawInsp()"></div>
+  <div id="inspbody"></div>`;
+  drawInsp();
+}
+function drawInsp(){
+  const q=(document.getElementById('iq')?.value||'').toLowerCase();
+  const list=cols.filter(c=>c.monthly&&c.address.toLowerCase().includes(q));
+  document.getElementById('inspbody').innerHTML=`
+  <div class="panel scrollx" style="padding:6px 6px">
+    <table class="tbl" style="font-size:11.5px;border-collapse:collapse">
+    <thead><tr>
+      <th style="position:sticky;left:0;background:var(--panel);z-index:2">Адреса</th>
+      ${PAYMONTHS.map((m,i)=>`<th style="text-align:center;padding:8px 10px;background:${i%2?'var(--panel2)':'var(--panel)'}">${m.slice(0,3)}</th>`).join('')}
+    </tr></thead>
+    <tbody>
+    ${list.map(c=>{const ci=cols.indexOf(c);return `<tr>
+      <td style="position:sticky;left:0;background:var(--panel);z-index:1;font-weight:500;white-space:nowrap;padding-right:14px">${c.address}</td>
+      ${PAYMONTHS.map(m=>{const d=c.monthly[m]||{};const val=!!d.inspected;const hasNote=d.note&&d.note.trim();
+        let bg=val?'rgba(52,211,153,0.18)':'rgba(251,191,36,0.14)';
+        let mark=val?'<span style="color:#34d399">✓</span>':'<span style="color:#9a8a4a">▢</span>';
+        if(hasNote)mark+='<span style="color:#60a5fa;font-size:10px;vertical-align:super" title="є коментар">●</span>';
+        const tip=hasNote?d.note.replace(/"/g,'&quot;'):c.address+' · '+m+' · натисни для огляду + коментаря';
+        return `<td onclick="openInsp(${ci},'${m}')" title="${tip}" style="text-align:center;cursor:pointer;background:${bg};font-size:14px;padding:9px 12px">${mark}</td>`;
+      }).join('')}
+    </tr>`}).join('')}
+    </tbody></table>
+  </div>
+  <div class="note">✓ — огляд проведено, ▢ — ні. Синя ● — є коментар про стан. Клік по клітинці відкриває форму огляду з полем для коментаря про проблемні моменти. Демо-дані.</div>`;
 }
 
 // ============ ECO   (kому/коли видали, no generation) ============
@@ -726,7 +768,7 @@ const REQ_ST={'Нова':'blue','В роботі':'amber','Очікує ДУ':'p
 const MANAGERS=['—','Адріана','Аня','Маргарита'];
 let _reqType='all',_reqSt='all';
 function reqView(){
-  setNav('req');crumb.innerHTML='Операційне › <b>Заявки</b>';
+  setNav('req');crumb.innerHTML='Стан та ремонти › <b>Заявки на ремонт</b>';
   const types=['all',...new Set(REQS.map(r=>r.type))];
   const sts=['all',...new Set(REQS.map(r=>r.st))];
   app.innerHTML=`
@@ -759,7 +801,7 @@ function drawReq(){
     <td><span class="pill ${REQ_ST[r.st]}">${r.st}</span></td><td>${r.date}</td></tr>`).join('')||'<tr><td colspan="7" class="muted-cell">Немає заявок за фільтром.</td></tr>';
 }
 function reqDetailView(id){
-  setNav('req');const r=REQS.find(x=>x.id===id);crumb.innerHTML=`Заявки › <b>${id}</b>`;
+  setNav('req');const r=REQS.find(x=>x.id===id);crumb.innerHTML=`Стан та ремонти › Заявки › <b>${id}</b>`;
   app.innerHTML=`
   <span class="back" onclick="go('req')">‹ Усі заявки</span>
   <div class="h1">Заявка ${r.id} · ${r.type}</div>
@@ -962,7 +1004,7 @@ function sMap(){
       <div class="note">Карта OpenStreetMap. Студентська версія: адреса та сотник, без фінансів.</div>`;
     if(window._kseMap){window._kseMap.remove();window._kseMap=null;}
     const map=L.map('slmap',{scrollWheelZoom:true}).setView([50.452,30.523],11);window._kseMap=map;
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap · © CARTO',maxZoom:19}).addTo(map);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:19}).addTo(map);
     const grp=[];
     list.forEach(c=>{const so=sotnyk(cols.indexOf(c));
       const icon=L.divIcon({className:'',iconSize:[16,16],iconAnchor:[8,8],html:`<div style="width:16px;height:16px;border-radius:50%;background:#3b82f6;border:2px solid #0b0d10;box-shadow:0 0 0 4px #3b82f633"></div>`});
